@@ -13,7 +13,7 @@ const modulesDirectories = [
   'node_modules'
 ]
 
-const hasModules = fs.fileExistsSync(path.join(__dirname, 'node_modules'))
+const hasModules = fs.existsSync(path.join(__dirname, 'node_modules'))
 
 const resolveBabelPackages = packages => {
   const modulePath = hasModules ? 'node_modules' : '../../node_modules'
