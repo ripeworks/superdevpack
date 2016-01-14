@@ -4,6 +4,7 @@ const Config = require('webpack-configurator')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const env = process.env.NODE_ENV || 'development'
 const config = new Config()
 const directory = process.cwd()
 
@@ -50,14 +51,11 @@ config
     }
   })
   .plugin('webpack-define', webpack.DefinePlugin, [{
-    __DEV__: true,
     'process.env': {
-      // 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      NODE_ENV: JSON.stringify('development')
+      NODE_ENV: JSON.stringify(env)
     }
   }])
   .plugin('webpack-order', webpack.optimize.OccurenceOrderPlugin)
-  .plugin('webpack-hmr', webpack.HotModuleReplacementPlugin)
   .plugin('webpack-noerrors', webpack.NoErrorsPlugin)
   .plugin('webpack-html', HtmlWebpackPlugin, [{
     template: `${__dirname}/index.html`,
@@ -65,9 +63,23 @@ config
     inject: 'body'
   }])
 
+// development
+if (env == 'development') {
+  config.plugin('webpack-hmr', webpack.HotModuleReplacementPlugin)
+}
+
+// production
+if (env == 'production') {
+  config
+    .merge({devtool: 'source-map'})
+    .plugin('webpack-uglify', webpack.optimize.UglifyJsPlugin, [{
+      compressor: { warnings: false }
+    }])
+}
+
 // merge in user-configs
 // accepts {} or function(config)
-const userConfig = path.resolve(process.cwd(), './webpack.config.js')
+const userConfig = path.resolve(directory, './webpack.config.js')
 if (fs.existsSync(userConfig)) {
   config.merge(require(userConfig))
 }
