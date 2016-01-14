@@ -10,6 +10,7 @@ const directory = process.cwd()
 const modulesDirectories = [
   `${directory}/node_modules`,
   `${__dirname}/node_modules`,
+  `${__dirname}/../../node_modules`,
   'node_modules'
 ]
 
