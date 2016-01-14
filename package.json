@@ -37,8 +37,8 @@
     "type": "git",
     "url": "git+https://github.com/ripeworks/superdevpack.git"
   },
-  "author": "mike@ripeworks.com",
-  "license": "ISC",
+  "author": "Mike Kruk <mike@ripeworks.com> (http://ripeworks.com)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ripeworks/superdevpack/issues"
   },
