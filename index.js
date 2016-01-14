@@ -10,13 +10,15 @@ const directory = process.cwd()
 const modulesDirectories = [
   `${directory}/node_modules`,
   `${__dirname}/node_modules`,
-  `${__dirname}/../../node_modules`,
   'node_modules'
 ]
 
+const hasModules = fs.fileExistsSync(path.join(__dirname, 'node_modules'))
+
 const resolveBabelPackages = packages => {
+  const modulePath = hasModules ? 'node_modules' : '../../node_modules'
   return packages.map(package => {
-    return path.resolve(__dirname, 'node_modules', package)
+    return path.resolve(__dirname, modulePath, package)
   })
 }
 
