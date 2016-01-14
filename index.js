@@ -5,15 +5,30 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = new Config()
+const directory = process.cwd()
+
+const modulesDirectories = [
+  `${directory}/node_modules`,
+  `${__dirname}/node_modules`,
+  'node_modules'
+]
+
+const resolveBabelPackages = packages => {
+  return packages.map(package => {
+    return path.resolve(__dirname, 'node_modules', package)
+  })
+}
 
 config
   .merge({
     entry: ['webpack-hot-middleware/client', './src'],
     output: {
-      path: path.join(process.cwd(), 'public'),
+      path: path.join(directory, 'public'),
       filename: '[name].js',
       publicPath: '/'
     },
+    resolveLoader: {modulesDirectories},
+    resolve: {modulesDirectories},
     devtool: 'eval',
     // devtool: 'cheap-module-eval-source-map'
   })
@@ -22,11 +37,11 @@ config
     loader: 'babel',
     exclude: /(node_modules|bower_components)/,
     query: {
-      presets: ['react', 'es2015', 'stage-0'],
-      plugins: ['transform-decorators-legacy'],
+      presets: resolveBabelPackages(['babel-preset-react', 'babel-preset-es2015', 'babel-preset-stage-0']),
+      plugins: resolveBabelPackages(['babel-plugin-transform-decorators-legacy']),
       env: {
         development: {
-          presets: ['react-hmre']
+          presets: resolveBabelPackages(['babel-preset-react-hmre'])
         }
       }
     }
@@ -42,7 +57,7 @@ config
   .plugin('webpack-hmr', webpack.HotModuleReplacementPlugin)
   .plugin('webpack-noerrors', webpack.NoErrorsPlugin)
   .plugin('webpack-html', HtmlWebpackPlugin, [{
-    template: __dirname + '/index.html',
+    template: `${__dirname}/index.html`,
     hash: true,
     inject: 'body'
   }])
