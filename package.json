@@ -1,6 +1,6 @@
 {
   "name": "superdevpack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "configurable webpack dev server and build tool so you don't have to",
   "main": "index.js",
   "bin": {
