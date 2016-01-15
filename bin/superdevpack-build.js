@@ -12,6 +12,7 @@ program
 const config = require('../config')
 const compiler = webpack(config)
 
+// fixme - show build progress
 // compiler.apply(new webpack.ProgressPlugin())
 compiler.run((err, stats) => {
   if (err) {

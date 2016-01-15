@@ -35,6 +35,13 @@ $ superdevpack -h
 * stage-0 preset
 * legacy decorator syntax
 * React HMRE + redbox
+* Webpack loaders
+  * babel-loader
+  * css-loader
+  * file-loader
+  * script-loader
+  * style-loader
+  * url-loader
 
 ## Customize webpack configuration
 

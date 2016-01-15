@@ -12,9 +12,9 @@ const app = require('../')()
 
 app.listen(program.port, 'localhost', function(err) {
   if (err) {
-    console.log(err)
+    throw err
     return
   }
 
-  console.log('Listening at http://localhost:' + program.port)
+  console.log(`Listening at http://localhost:${program.port}`)
 })
