@@ -38,7 +38,7 @@ $ superdevpack -h
 
 ## Customize webpack configuration
 
-If you include a `webpack.config.js` file in your project root, superdevpack will pick it up and merge it into its default configuration. You can either export an object to merge, or a function to replace the configuration. superdevpack uses [webpack-configurator](https://github.com/lewie9021/webpack-configurator) behind the scenes, so give that a look if you need to.
+If you include a `webpack.config.js` file in your project root, superdevpack will pick it up and merge it into its default configuration. You can either export an object to merge, or a function to replace the configuration.
 
 ```
 // webpack.config.js
