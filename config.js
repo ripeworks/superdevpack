@@ -12,11 +12,9 @@ const modulesDirectories = [
   'node_modules'
 ]
 
-const hasModules = fs.existsSync(path.join(__dirname, 'node_modules'))
-
 const resolveBabelPackages = pkgs => {
-  const modulePath = hasModules ? 'node_modules' : '../../node_modules'
   return pkgs.map(pkg => {
+    const modulePath = fs.existsSync(path.join(__dirname, 'node_modules', pkg)) ? 'node_modules' : '../../node_modules'
     return path.resolve(__dirname, modulePath, pkg)
   })
 }
