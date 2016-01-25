@@ -65,7 +65,7 @@ if (env == 'production') {
   config.devtool = 'source-map'
   config.plugins.push(
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyPlugin({
+    new webpack.optimize.UglifyJsPlugin({
       compressor: { warnings: false },
       output: { comments: false }
     })
