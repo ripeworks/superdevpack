@@ -4,6 +4,7 @@ process.env.NODE_ENV = 'production'
 
 const program = require('commander')
 const webpack = require('webpack')
+const colors  = require('supports-color')
 
 program
   //.version()
@@ -11,13 +12,23 @@ program
 
 const config = require('../config')
 const compiler = webpack(config)
+const outputOptions = {
+  cached: false,
+  cachedAssets: false,
+  colors: colors,
+  exclude: ['node_modules', 'bower_components']
+}
 
-// fixme - show build progress
-// compiler.apply(new webpack.ProgressPlugin())
 compiler.run((err, stats) => {
   if (err) {
-    console.log(err)
-  } else {
-    console.log('Build successful')
+    console.error(err.stack || err)
+    if (err.details) console.error(err.details)
+    process.on('exit', () => process.exit(1))
+  }
+
+  process.stdout.write(stats.toString(outputOptions) + "\n")
+
+  if (stats.hasErrors()) {
+    process.on('exit', () => process.exit(2))
   }
 })
