@@ -18,10 +18,13 @@ const outputOptions = {
 }
 
 compiler.run((err, stats) => {
+  compiler.purgeInputFileSystem()
+
   if (err) {
     console.error(err.stack || err)
     if (err.details) console.error(err.details)
     process.on('exit', () => process.exit(1))
+    return
   }
 
   process.stdout.write(stats.toString(outputOptions) + "\n")
