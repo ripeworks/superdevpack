@@ -2,6 +2,8 @@
 
 A configurable webpack development server, geared for React and Hot Module Reloading.
 
+[![npm version](https://badge.fury.io/js/superdevpack.svg)](https://badge.fury.io/js/superdevpack)
+
 ## Installation
 
 ```
